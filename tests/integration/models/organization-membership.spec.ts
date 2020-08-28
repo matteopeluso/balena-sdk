@@ -70,4 +70,27 @@ describe('Organization Membership Model', function () {
 			]);
 		});
 	});
+
+	// See: https://github.com/balena-io/balena-api/issues/2763
+	describe.skip('balena.models.organization.membership.remove()', function () {
+		it(`should not be able to remove the last membership of the organization`, async function () {
+			const [
+				membership,
+			] = await balena.models.organization.membership.getAllByOrganization(
+				this.initialOrg.id,
+				{
+					$select: 'id',
+					$filter: { user: this.userId },
+				},
+			);
+
+			expect(membership).to.be.an('object');
+			expect(membership).to.have.property('id').that.is.a('number');
+
+			const promise = balena.models.organization.membership.remove(
+				membership.id,
+			);
+			await expect(promise).to.be.rejected;
+		});
+	});
 });

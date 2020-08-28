@@ -104,6 +104,29 @@ const getOrganizationMembershipModel = function (
 				),
 			);
 		},
+
+		/**
+		 * @summary Remove a membership
+		 * @name remove
+		 * @public
+		 * @function
+		 * @memberof balena.models.organization.membership
+		 *
+		 * @param {Number} id - organization membership id
+		 * @returns {Promise}
+		 *
+		 * @example
+		 * balena.models.organization.membership.remove(123);
+		 *
+		 * @example
+		 * balena.models.organization.membership.remove(123,function(error) {
+		 * 	if (error) throw error;
+		 * 	...
+		 * });
+		 */
+		async remove(id: number): Promise<void> {
+			await pine.delete({ resource: RESOURCE, id });
+		},
 	};
 	return exports;
 };

@@ -885,6 +885,7 @@ export interface BalenaSDK {
 					handleOrId: string | number,
 					options?: PineOptions<OrganizationMembership>,
 				): Promise<OrganizationMembership[]>;
+				remove(id: number): Promise<void>;
 			};
 		};
 		os: {
